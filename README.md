@@ -43,6 +43,6 @@ La aplicación consume los endpoints del backend PHP mediante **Axios**, manejan
 ### 1️⃣ Clonar el repositorio
 
 ```bash
-git clone <url-del-repo>
+git clone https://github.com/EmaMarc/React-Front-Tenis
 cd tenis
 ```
