@@ -1,20 +1,17 @@
-import axios from "../../utils/axiosClient";
+// /src/pages/auth/LogoutPage.jsx
 import { useEffect } from "react";
-import { logoutSession } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
+import { doLogout } from "../../utils/auth";
 
 export default function LogoutPage() {
 	const nav = useNavigate();
+
 	useEffect(() => {
 		(async () => {
-			try {
-				await axios.post("/logout");
-			} catch (e) {
-				//
-			}
-			logoutSession();
+			await doLogout(); // hace POST /logout y limpia storage + notifica
 			nav("/");
 		})();
 	}, [nav]);
+
 	return <p>Saliendo...</p>;
 }

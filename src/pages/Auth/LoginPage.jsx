@@ -1,6 +1,5 @@
 import { useState } from "react";
-import axios from "../../utils/axiosClient";
-import { saveSession } from "../../utils/auth";
+import { loginAndLoadUser } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
@@ -13,12 +12,10 @@ export default function LoginPage() {
 		e.preventDefault();
 		setErr("");
 		try {
-			const { data } = await axios.post("/login", { email, password });
-			// asumimos que backend devuelve { token, user: {id, first_name, last_name, is_admin} }
-			saveSession({ token: data.token, user: data.user });
+			await loginAndLoadUser({ email, password });
 			nav("/");
 		} catch (e) {
-			setErr(e?.response?.data?.error || "Error de login");
+			setErr(e?.response?.data?.error || e.message || "Error de login");
 		}
 	}
 
