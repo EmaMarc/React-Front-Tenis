@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	@apply bg-neutral-light text-gray-800 font-sans;
+}
+
+/* Evita el “despegado” del borde y scrolls raros */
+html,
+body,
+#root {
+	height: 100%;
+}
+body {
+	margin: 0; /* <- importante */
+	@apply bg-neutral-light text-gray-800 overflow-x-hidden;
+}

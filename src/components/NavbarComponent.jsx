@@ -1,36 +1,33 @@
-import { Link } from "react-router-dom";
-import { getUser } from "../utils/auth";
+import { Link, useLocation } from "react-router-dom";
+
+const base =
+	"relative flex items-center gap-2 text-gray-700 hover:text-primary-dark transition-colors " +
+	"after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] " +
+	"after:bg-gradient-to-r after:from-accent-dark after:to-primary-dark hover:after:w-full " +
+	"after:transition-all after:duration-300 after:ease-out p-2";
 
 export default function NavBarComponent() {
-	const user = getUser();
+	const location = useLocation();
+	const isActive = (path) => location.pathname === path;
+
 	return (
-		<nav className="nav">
-			<Link to="/">
-				<span className="material-icons">event</span> Reservas del día
-			</Link>
-
-			<Link to="/courts">
-				<span className="material-icons">sports_tennis</span> Canchas
-			</Link>
-
-			<Link to="/register">
-				<span className="material-icons">person_add</span> Registro
-			</Link>
-
-			{user ? (
-				<>
-					<span>
-						<span className="material-icons">account_circle</span> Hola, {user.first_name} {user.last_name}
-					</span>
-					<Link to="/logout">
-						<span className="material-icons">logout</span> Logout
-					</Link>
-				</>
-			) : (
-				<Link to="/login">
-					<span className="material-icons">login</span> Login
+		<ul className="flex items-center gap-16 text-gray-700">
+			<li>
+				<Link
+					className={`${base} ${isActive("/") ? "after:w-full text-primary-dark" : "after:w-0 hover:after:w-full"}`}
+					to="/">
+					<span className="material-icons text-accent-dark scale-90">event</span>
+					Reservas del día
 				</Link>
-			)}
-		</nav>
+			</li>
+			<li>
+				<Link
+					className={`${base} ${isActive("/courts") ? "after:w-full text-primary-dark" : "after:w-0 hover:after:w-full"}`}
+					to="/courts">
+					<span className="material-icons text-accent-dark scale-90">sports_tennis</span>
+					Canchas
+				</Link>
+			</li>
+		</ul>
 	);
 }
